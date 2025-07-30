@@ -1,22 +1,27 @@
-import express, { Express, Request, Response, Router } from "express";
 import cors from "cors";
+import express, {
+	type Express,
+	type Request,
+	type Response,
+	Router,
+} from "express";
 
 const setupRoutes = (app: Express) => {
-    app.use(express.json())
-    app.use(
-        cors({
-            origin: process.env.CORS_ORIGIN || "",
-            methods: ["GET", "POST", "OPTIONS"],
-        })
-    );
+	app.use(express.json());
+	app.use(
+		cors({
+			origin: process.env.CORS_ORIGIN || "",
+			methods: ["GET", "POST", "OPTIONS"],
+		}),
+	);
 
-    const appRouter = Router();
+	const appRouter = Router();
 
-    appRouter.get("/", (_req: Request, res: Response) => {
-        res.json({ message: "OK" });
-    });
+	appRouter.get("/", (_req: Request, res: Response) => {
+		res.json({ message: "OK" });
+	});
 
-    app.use("/api", appRouter);
+	app.use("/api", appRouter);
 };
 
 export default setupRoutes;

@@ -1,7 +1,7 @@
 import "dotenv/config";
-import express, { type Request, type Response } from "express";
-import setupRoutes from "./routers/routes";
 import { clerkMiddleware } from "@clerk/express";
+import express from "express";
+import setupRoutes from "./routers/routes";
 
 const app = express();
 
@@ -11,5 +11,5 @@ setupRoutes(app);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+	console.log(`Server is running on port ${port}`);
 });
