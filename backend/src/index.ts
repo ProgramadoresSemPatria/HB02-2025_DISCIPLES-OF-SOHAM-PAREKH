@@ -1,25 +1,13 @@
 import "dotenv/config";
-import cors from "cors";
 import express, { type Request, type Response } from "express";
+import setupRoutes from "./routers/routes";
+import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN || "",
-    methods: ["GET", "POST", "OPTIONS"],
-  })
-);
+app.use(clerkMiddleware());
 
-
-
-
-app.use(express.json())
-
-
-app.get("/", (_req: Request, res: Response) => {
-  res.json({ message: "OK" });
-});
+setupRoutes(app);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
