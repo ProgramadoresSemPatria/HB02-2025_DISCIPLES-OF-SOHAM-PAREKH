@@ -1,10 +1,20 @@
-import "./index.css";
+import { ClerkProvider } from '@clerk/react-router';
+import { BrowserRouter } from 'react-router';
+import { Router } from './Router';
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+	throw new Error('Add your Clerk Publishable Key to the .env file')
+}
 
 function App() {
 	return (
-		<div className="flex h-screen w-screen items-center justify-center bg-[#121212] text-white">
-			<h1>Hello World</h1>
-		</div>
+		<BrowserRouter>
+			<ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+				<Router />
+			</ClerkProvider>
+		</BrowserRouter>
 	);
 }
 
