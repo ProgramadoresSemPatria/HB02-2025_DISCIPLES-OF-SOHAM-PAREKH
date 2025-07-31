@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { MobileMenu } from "./MobileMenu";
 import { TfiClose, TfiAlignLeft } from "react-icons/tfi";
+import { MobileMenu } from "./MobileMenu";
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
