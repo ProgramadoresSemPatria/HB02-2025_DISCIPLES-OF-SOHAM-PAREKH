@@ -1,5 +1,4 @@
-import { SignIn } from "@clerk/react-router";
-
+import { SignIn } from "@clerk/clerk-react";
 
 
 export function Login() {

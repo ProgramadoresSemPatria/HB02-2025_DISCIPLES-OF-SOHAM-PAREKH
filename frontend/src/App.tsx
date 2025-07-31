@@ -1,4 +1,4 @@
-import { ClerkProvider } from '@clerk/react-router';
+import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter } from 'react-router';
 import { Router } from './Router';
 

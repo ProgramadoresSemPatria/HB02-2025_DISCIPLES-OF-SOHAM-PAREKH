@@ -1,4 +1,4 @@
-import { UserButton } from "@clerk/react-router";
+import { UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router";
 
 export function Home() {
