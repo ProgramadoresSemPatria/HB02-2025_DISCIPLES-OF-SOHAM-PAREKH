@@ -1,4 +1,3 @@
-// src/components/Home/FeaturesSection.tsx
 import { FaGlobe, FaMapMarkerAlt, FaClock, FaShieldAlt } from "react-icons/fa";
 import FeatureCard from "./FeatureCard";
 
