@@ -21,7 +21,7 @@ export default function FeatureCard({ icon, title, description }: FeatureCardPro
       transition={{ duration: 1, ease: "easeOut" }}
       className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition"
     >
-      <div className="mb-4">{icon}</div>
+      <div className="mb-4 flex justify-center">{icon}</div>
       <h3 className="font-semibold text-lg mb-2">{title}</h3>
       <p className="text-sm text-gray-600">{description}</p>
     </motion.div>
