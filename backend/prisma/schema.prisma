@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+enum planType {
+  VACATION
+  RELOCATION
+}
+
+enum budgetLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model travelPlan {
+  id        String   @id @default(uuid())
+  clerkUserId   String
+  type      planType
+  budget    Int?
+  budgetLevel budgetLevel
+  destination String
+  days      Int?
+  itinerary Json?
+  costSummary Json?
+  additionalInfo Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([clerkUserId])
+  @@map("travel_plans")
+}

@@ -1,0 +1,23 @@
+name: travelwise-backend
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: travelwise-backend-postgres
+    environment:
+      POSTGRES_DB: travelwise-backend
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - travelwise-backend_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  travelwise-backend_postgres_data:

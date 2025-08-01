@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "CommonJS",
+		"strict": true,
+		"outDir": "dist",
+		"rootDir": ".",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+		"moduleResolution": "node",
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["src/**/*", "generated/**/*", "types/**/*"],
+	"exclude": ["node_modules"]
+}
