@@ -1,13 +1,23 @@
-import { UserButton } from "@clerk/react-router";
-import { Link } from "react-router";
+
+import Header from "@/components/Header/Header";
+import CallToActionSection from "@/components/Home/CallActionSection";
+import FeaturesSection from "@/components/Home/FeaturesSection";
+import HeroSection from "@/components/Home/HeroSection";
+import TutorialSection from "@/components/Home/TutorialSection";
+import { UserButton } from "@clerk/clerk-react";
+
+
 
 export function Home() {
 	return (
 		<div>
-			<h1>Home</h1>
-            <UserButton />
-            <Link to="/sign-up">Signup</Link>
-            <Link to="/login">Login</Link>
+			<Header/>
+			<HeroSection/>
+			<UserButton />
+			<FeaturesSection />
+			<TutorialSection/>
+			<CallToActionSection/>
+            
 		</div>
 	);
 }
