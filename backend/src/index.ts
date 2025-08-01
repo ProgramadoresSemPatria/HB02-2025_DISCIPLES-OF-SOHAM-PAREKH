@@ -1,12 +1,8 @@
 import "dotenv/config";
-import { clerkMiddleware } from "@clerk/express";
 import express from "express";
-import setupRoutes from "./routers/routes";
+import setupRoutes from "./routes/router";
 
 const app = express();
-
-app.use(clerkMiddleware());
-
 setupRoutes(app);
 
 const port = process.env.PORT || 3000;
