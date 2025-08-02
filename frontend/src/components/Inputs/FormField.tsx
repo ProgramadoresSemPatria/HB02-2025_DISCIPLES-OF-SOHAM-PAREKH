@@ -1,3 +1,4 @@
+// FormField.tsx
 import React from "react";
 
 interface FormFieldProps {
@@ -21,6 +22,8 @@ const FormField: React.FC<FormFieldProps> = ({
   icon,
   options,
 }) => {
+  const paddingLeftClass = icon ? "pl-9" : "pl-5";
+
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2">
@@ -40,17 +43,13 @@ const FormField: React.FC<FormFieldProps> = ({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-            className={`w-full h-[50px] rounded-lg border pl-${
-              icon ? "10" : "4"
-            } pr-4 bg-white bg-opacity-60 outline-none focus:ring-2 focus:ring-blue-400 transition text-sm text-gray-800`}
+            className={`w-full h-[50px] rounded-lg border ${paddingLeftClass} pr-4 bg-white bg-opacity-60 outline-none focus:ring-2 focus:ring-blue-400 transition text-sm text-gray-800`}
           />
         ) : (
           <select
             value={value}
             onChange={onChange}
-            className={`w-full h-[50px] rounded-lg border pl-${
-              icon ? "10" : "4"
-            } pr-4 bg-white bg-opacity-60 outline-none focus:ring-2 focus:ring-blue-400 transition text-sm text-gray-800`}
+            className={`w-full h-[50px] rounded-lg border ${paddingLeftClass} pr-4 bg-white bg-opacity-60 outline-none focus:ring-2 focus:ring-blue-400 transition text-sm text-gray-800`}
           >
             <option value="">Select budget range</option>
             {options?.map((opt) => (
@@ -64,5 +63,6 @@ const FormField: React.FC<FormFieldProps> = ({
     </div>
   );
 };
+
 
 export default FormField;

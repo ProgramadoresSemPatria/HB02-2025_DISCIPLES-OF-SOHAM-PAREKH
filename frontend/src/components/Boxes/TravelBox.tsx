@@ -19,7 +19,6 @@ const TravelBox = ({ onGenerate }: TravelBoxProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-
       <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1">
         <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
           TravelWise
@@ -47,9 +46,9 @@ const TravelBox = ({ onGenerate }: TravelBoxProps) => {
           onChange={(e) => setBudget(e.target.value)}
           icon={<DollarSign className="w-4 h-4" />}
           options={[
-            { value: "low", label: "$ Low" },
-            { value: "medium", label: "$$ Medium" },
-            { value: "high", label: "$$$ High" },
+            { value: "low", label: "Low" },
+            { value: "medium", label: "Medium" },
+            { value: "high", label: "High" },
           ]}
         />
 
