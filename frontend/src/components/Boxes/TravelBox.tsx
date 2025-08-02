@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CalendarDays, DollarSign } from "lucide-react";
 import { motion } from "framer-motion";
 import FormField from "../Inputs/FormField";
+import GeneratePlanButton from "../Buttons/GeneratePlanButton";
 
 const TravelBox = () => {
   const [duration, setDuration] = useState("");
@@ -9,24 +10,22 @@ const TravelBox = () => {
 
   return (
     <motion.div
-      className="bg-white p-6 rounded-xl shadow-md w-full max-w-4xl mx-auto flex gap-10 mt-10"
+      className="bg-white p-6 md:p-8 rounded-2xl shadow-md w-full max-w-5xl mx-auto flex flex-col md:flex-row gap-10 mt-10"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
 
-      <div className="flex flex-col items-center flex-1 text-center md:text-left md:items-start">
-        <span className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+      <div className="flex flex-col items-center md:items-start text-center md:text-left flex-1">
+        <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
           TravelWise
-        </span>
-        <p className="text-gray-700 text-2xl leading-relaxed mt-2 max-w-md">
-          Plan your trip easily by specifying how long you want to travel and
-          your budget preference. We'll generate the perfect itinerary for you!
+        </h2>
+        <p className="text-gray-700 text-base sm:text-lg leading-relaxed mt-4 max-w-md">
+          Plan your trip easily by specifying how long you want to travel and your budget preference. We'll generate the perfect itinerary for you!
         </p>
       </div>
 
-    
-      <div className="flex flex-col gap-6 w-[350px]">
+      <div className="flex flex-col gap-6 w-full md:w-[350px]">
         <FormField
           label="Trip Duration"
           type="input"
@@ -50,9 +49,7 @@ const TravelBox = () => {
           ]}
         />
 
-        <button className="bg-blue-400 hover:bg-blue-500 text-white font-semibold px-10 py-2 rounded-md flex items-center justify-center gap-2 shadow-md transition w-full sm:w-auto">
-          Generate My Plan
-        </button>
+        <GeneratePlanButton />
       </div>
     </motion.div>
   );
