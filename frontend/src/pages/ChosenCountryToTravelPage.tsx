@@ -7,11 +7,11 @@ const ChosenCountryToTravelPage = () => {
 
   return (
     <>
-      <div className="display flex items-center justify-center flex-col">
+      <div className="display flex justify-center flex-col w-full min-h-screen bg-blue-50">
 
-      <div className="bg-blue-50 w-full py-4">
+      
         <HeaderButtons country={country} city={city} />
-      </div>
+
 
       
 
