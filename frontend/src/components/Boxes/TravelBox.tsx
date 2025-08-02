@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CalendarDays, DollarSign } from "lucide-react";
+import { motion } from "framer-motion";
 import FormField from "../Inputs/FormField";
 
 const TravelBox = () => {
@@ -7,7 +8,13 @@ const TravelBox = () => {
   const [budget, setBudget] = useState("");
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-4xl mx-auto flex gap-10 mt-10">
+    <motion.div
+      className="bg-white p-6 rounded-xl shadow-md w-full max-w-4xl mx-auto flex gap-10 mt-10"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+
       <div className="flex flex-col items-center flex-1 text-center md:text-left md:items-start">
         <span className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
           TravelWise
@@ -18,6 +25,7 @@ const TravelBox = () => {
         </p>
       </div>
 
+    
       <div className="flex flex-col gap-6 w-[350px]">
         <FormField
           label="Trip Duration"
@@ -46,7 +54,7 @@ const TravelBox = () => {
           Generate My Plan
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
