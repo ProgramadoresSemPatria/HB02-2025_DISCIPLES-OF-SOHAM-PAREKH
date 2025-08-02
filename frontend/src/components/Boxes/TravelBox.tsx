@@ -4,7 +4,11 @@ import { motion } from "framer-motion";
 import FormField from "../Inputs/FormField";
 import GeneratePlanButton from "../Buttons/GeneratePlanButton";
 
-const TravelBox = () => {
+interface TravelBoxProps {
+  onGenerate: () => void;
+}
+
+const TravelBox = ({ onGenerate }: TravelBoxProps) => {
   const [duration, setDuration] = useState("");
   const [budget, setBudget] = useState("");
 
@@ -49,7 +53,7 @@ const TravelBox = () => {
           ]}
         />
 
-        <GeneratePlanButton />
+        <GeneratePlanButton onGenerate={onGenerate} />
       </div>
     </motion.div>
   );
