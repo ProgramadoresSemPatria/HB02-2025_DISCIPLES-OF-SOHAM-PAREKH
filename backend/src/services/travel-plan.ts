@@ -1,8 +1,6 @@
 import { TravelPlanRepository } from "../repositories/travel-plan";
-import { PerplexityService } from "./ai/perplexity";
-import { OpenAIService } from "./ai/openai";
-import { PromptTemplates } from "../utils/prompt-templates";
-import { 
+import { GeminiService } from "./ai/gemini";
+import {
   TravelPlanRequest,
   VacationResponse,
   RelocationResponse,
@@ -12,26 +10,30 @@ import {
 export class TravelPlanService {
   constructor(
     private travelPlanRepository: TravelPlanRepository,
-    private perplexityService: PerplexityService,
-    private openAIService: OpenAIService
+    private geminiService: GeminiService
   ) {}
 
   async createTravelPlan(
-    userId: string, 
+    userId: string,
     request: TravelPlanRequest
   ): Promise<VacationResponse | RelocationResponse> {
     try {
-      const prompt = this.generatePrompt(request);
-
-      const rawResponse = await this.perplexityService.generateResponse({ prompt, destination: request.destination, planType: request.type });
-
+      const startTime = Date.now();
       let structuredData: any;
       
       if (request.type === 'VACATION') {
-        structuredData = await this.openAIService.structureVacationContent(rawResponse);
+        structuredData = await this.geminiService.generateVacationPlan(
+          request.destination,
+          request.days || 7,
+          request.budgetLevel
+        );
       } else {
-        structuredData = await this.openAIService.structureRelocationContent(rawResponse);
+        structuredData = await this.geminiService.generateRelocationPlan(
+          request.destination
+        );
       }
+
+      const generationTime = Date.now() - startTime;
 
       const savedPlan = await this.travelPlanRepository.create({
         clerkUserId: userId,
@@ -42,7 +44,11 @@ export class TravelPlanService {
         budget: request.budget,
         itinerary: structuredData,
         costSummary: structuredData.costs || structuredData.costOfLiving,
-        additionalInfo: { rawResponse },
+        additionalInfo: { 
+          model: "gemini-2.5-pro",
+          sdk: "@google/generative-ai",
+          generationTime,
+        },
       });
 
       return this.formatResponse(savedPlan, structuredData, request);
@@ -59,11 +65,10 @@ export class TravelPlanService {
   async getTravelPlanById(id: string, userId: string): Promise<VacationResponse | RelocationResponse | null> {
     const plan = await this.travelPlanRepository.findByIdAndUserId(id, userId);
     if (!plan) return null;
-
     return this.formatResponseFromEntity(plan);
   }
 
-  async updateTravelPlan(id: string, userId: string, updates: Partial<TravelPlanRequest>): Promise<TravelPlanEntity> {
+  async updateTravelPlan(id: string, userId: string, updates: Partial<TravelPlanEntity>): Promise<TravelPlanEntity> {
     return this.travelPlanRepository.updateByIdAndUserId(id, userId, updates);
   }
 
@@ -72,25 +77,12 @@ export class TravelPlanService {
     if (!exists) {
       throw new Error("Travel plan not found or access denied");
     }
-    
     await this.travelPlanRepository.deleteByIdAndUserId(id, userId);
   }
 
-  private generatePrompt(request: TravelPlanRequest): string {
-    if (request.type === 'VACATION') {
-      return PromptTemplates.getVacationPrompt(
-        request.destination,
-        request.days || 7,
-        request.budgetLevel
-      );
-    } else {
-      return PromptTemplates.getRelocationPrompt(request.destination);
-    }
-  }
-
   private formatResponse(
-    savedPlan: TravelPlanEntity, 
-    structuredData: any, 
+    savedPlan: TravelPlanEntity,
+    structuredData: any,
     request: TravelPlanRequest
   ): VacationResponse | RelocationResponse {
     const baseResponse = {
@@ -146,7 +138,6 @@ export class TravelPlanService {
 
   private calculateEstimatedCost(data: any, days?: number): number | undefined {
     if (!days || !data?.costs?.totalDaily) return undefined;
-    
     const avgCost = (data.costs.totalDaily.min + data.costs.totalDaily.max) / 2;
     return Math.round(avgCost * days);
   }
