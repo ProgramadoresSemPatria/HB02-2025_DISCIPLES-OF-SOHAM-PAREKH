@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TfiClose, TfiAlignLeft } from "react-icons/tfi";
 import { MobileMenu } from "./MobileMenu";
+import { useUser } from "@clerk/clerk-react";
+import UserButton from "../UserButton";
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
-
+  const { user } = useUser();
   const toggleNav = () => setNavOpen((prev) => !prev);
   const closeNav = () => setNavOpen(false);
 
@@ -36,13 +38,17 @@ const Header = () => {
           >
             Features
           </Link>
-          <Link
-            to="/authenticate"
-            className="border border-gray-300 px-4 py-1.5 rounded-md text-gray-800 hover:bg-yellow-500 transition"
-            onClick={closeNav}
-          >
-            Login / Sign Up
-          </Link>
+          {user ? (
+            <UserButton user={user} />
+          ) : (
+            <Link
+              to="/authenticate"
+              className="border border-gray-300 px-4 py-1.5 rounded-md text-gray-800 hover:bg-yellow-500 transition"
+              onClick={closeNav}
+            >
+              Login / Sign Up
+            </Link>
+          )}
         </nav>
 
         <button
