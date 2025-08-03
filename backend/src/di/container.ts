@@ -1,28 +1,24 @@
 import { TravelPlanRepository } from "../repositories/travel-plan";
 import { TravelPlanService } from "../services/travel-plan";
-import { PerplexityService } from "../services/ai/perplexity";
-import { OpenAIService } from "../services/ai/openai";
 import { TravelPlanController } from "../http/controllers/travel-plan";
 import { PrismaClient } from "../../generated/client.js";
+import { GeminiService } from "../services/ai/gemini";
 
 export class DIContainer {
   private static instance: DIContainer;
   private prisma: PrismaClient;
   private travelPlanRepository: TravelPlanRepository;
-  private perplexityService: PerplexityService;
-  private openAIService: OpenAIService;
+  private geminiService: GeminiService;
   private travelPlanService: TravelPlanService;
   private travelPlanController: TravelPlanController;
 
   private constructor() {
     this.prisma = new PrismaClient();
     this.travelPlanRepository = new TravelPlanRepository(this.prisma);
-    this.perplexityService = new PerplexityService();
-    this.openAIService = new OpenAIService();
+    this.geminiService = new GeminiService();
     this.travelPlanService = new TravelPlanService(
       this.travelPlanRepository,
-      this.perplexityService,
-      this.openAIService
+      this.geminiService
     );
     this.travelPlanController = new TravelPlanController(this.travelPlanService);
   }
