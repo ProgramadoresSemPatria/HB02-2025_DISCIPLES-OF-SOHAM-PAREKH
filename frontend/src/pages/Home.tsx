@@ -10,7 +10,7 @@ import { UserButton } from "@clerk/clerk-react";
 
 export function Home() {
 	return (
-		<div>
+		<>
 			<Header/>
 			<HeroSection/>
 			<UserButton />
@@ -18,6 +18,6 @@ export function Home() {
 			<TutorialSection/>
 			<CallToActionSection/>
             
-		</div>
+		</>
 	);
 }

@@ -30,7 +30,7 @@ export default function FeaturesSection() {
       <h2 className="text-3xl sm:text-4xl font-bold mb-4">
         Everything you need for your <br/>
         <span className="bg-gradient-to-r from-green-300 to-blue-400 bg-clip-text text-transparent">
-          Travel or Realocation
+          Travel or Relocation
         </span>
       </h2>
 
