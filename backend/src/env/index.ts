@@ -10,8 +10,8 @@ const envSchema = z.object({
 	CORS_ORIGIN: z.string().url(),
 	CLERK_SECRET_KEY: z.string(),
 	CLERK_PUBLISHABLE_KEY: z.string(),
-	PERPLEXITY_API_KEY: z.string(),
-	OPENAI_API_KEY: z.string(),
+	GOOGLE_API_KEY: z.string(),
+	FRONTEND_URL: z.string().url(),
 });
 
 const _env = envSchema.safeParse(process.env);
