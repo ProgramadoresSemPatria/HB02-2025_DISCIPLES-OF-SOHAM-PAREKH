@@ -10,7 +10,7 @@ export default function StartPlanButton({ children, type = "button" }: StartPlan
   const navigate = useNavigate();
 
   const goToPlanPage = () => {
-    navigate("/paginaPlano");
+    navigate("/plan-form");
   };
 
   return (
