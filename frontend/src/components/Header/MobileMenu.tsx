@@ -23,18 +23,18 @@ export function MobileMenu({ navOpen, closeNav }: MobileMenuProps) {
       >
         <nav className="flex flex-col p-6 mt-20 space-y-6">
           <Link
-            to="/about"
+            to="/"
             className="text-gray-800 font-medium text-lg"
             onClick={closeNav}
           >
-            About
+            Home
           </Link>
           <Link
-            to="/features"
+            to="/my-plans"
             className="text-gray-800 font-medium text-lg"
             onClick={closeNav}
           >
-            Features
+            My Plans
           </Link>
           {user ? (
             <SignOutButton>
