@@ -1,0 +1,13 @@
+export { default as TravelBox } from './TravelBox';
+export { default as BudgetBreakdownBox } from './BudgetBreakdownBox';
+export { default as ItineraryBox } from './IteneraryBox';
+export { default as AttractionsBox } from './AttractionsBox';
+export { default as TipsBox } from './TipsBox';
+export { default as OverviewBox } from './OverviewBox';
+export { default as ClimateLifestyle } from './ClimateLifestyle';
+export { default as CostBreakdown } from './CostBreakdown';
+export { default as InfoCard } from './InfoCard';
+export { default as JobMarket } from './JobMarket';
+export { default as QualityOfLife } from './QualityOfLife';
+export { default as TaxInfo } from './TaxInfo';
+export { default as VisaResidency } from './VisaResidency'; 
