@@ -1,13 +1,22 @@
 interface InfoCardProps {
-  label: string;
-  value: string;
+  title?: string;
+  children?: React.ReactNode;
+  label?: string;
+  value?: string;
+  className?: string;
 }
 
-const InfoCard = ({ label, value }: InfoCardProps) => {
+const InfoCard = ({ title, children, label, value, className = "" }: InfoCardProps) => {
   return (
-    <div className="bg-white rounded-xl shadow p-4 text-center">
-      <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-xl font-bold text-blue-600 mt-1">{value}</p>
+    <div className={`bg-white shadow-md rounded-2xl p-6 ${className}`}>
+      {title && <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">{title}</h3>}
+      {label && value && (
+        <>
+          <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">{label}</h3>
+          <p className="text-xl font-bold text-blue-600 text-center">{value}</p>
+        </>
+      )}
+      {children}
     </div>
   );
 };
