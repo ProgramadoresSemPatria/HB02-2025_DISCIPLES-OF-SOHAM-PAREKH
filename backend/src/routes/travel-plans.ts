@@ -10,7 +10,7 @@ const getTravelPlanController = (): TravelPlanController => {
 };
 
 const requireAuth = (req: Request, res: Response, next: NextFunction) => {
-  try {
+  try { 
     const { userId } = getAuth(req);
     if (!userId) {
       return res.status(401).json({ 
@@ -40,6 +40,11 @@ router.get('/', requireAuth, async (req, res) => {
 router.get('/:id', requireAuth, async (req, res) => {
   const controller = getTravelPlanController();
   return controller.getPlanById(req, res);
+});
+
+router.delete('/:id', requireAuth, async (req, res) => {
+  const controller = getTravelPlanController();
+  return controller.deletePlan(req, res);
 });
 
 export default router;
