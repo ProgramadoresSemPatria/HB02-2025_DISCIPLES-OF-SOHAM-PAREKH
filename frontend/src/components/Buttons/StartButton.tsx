@@ -5,7 +5,7 @@ const StartButton = () => {
     const navigate = useNavigate();
 
     const startOver = () => {
-        navigate('/start')
+        navigate('/plan-form')
     }
 
   return (

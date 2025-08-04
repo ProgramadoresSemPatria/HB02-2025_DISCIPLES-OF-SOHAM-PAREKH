@@ -3,14 +3,30 @@ import { CalendarDays, DollarSign } from "lucide-react";
 import { motion } from "framer-motion";
 import FormField from "../Inputs/FormField";
 import GeneratePlanButton from "../Buttons/GeneratePlanButton";
+import type { CreateTravelPlanRequest } from "../../services/types/travel-plan.types";
 
 interface TravelBoxProps {
   onGenerate: () => void;
+  onSuccess?: (planId: string) => void;
+  onError?: (error: string) => void;
 }
 
-const TravelBox = ({ onGenerate }: TravelBoxProps) => {
+const TravelBox = ({ onGenerate, onSuccess, onError }: TravelBoxProps) => {
   const [duration, setDuration] = useState("");
   const [budget, setBudget] = useState("");
+
+  // Converter dados do formulário para o formato esperado
+  const getPlanData = (): CreateTravelPlanRequest => {
+    const budgetLevel = budget === "low" ? "LOW" : budget === "high" ? "HIGH" : "MEDIUM";
+    
+    return {
+      destination: "Spain, Barcelona", // Valor fixo para exemplo
+      type: "VACATION",
+      budgetLevel: budgetLevel as "LOW" | "MEDIUM" | "HIGH",
+      days: duration ? parseInt(duration) : undefined,
+      budget: undefined, // Pode ser adicionado um campo de orçamento se necessário
+    };
+  };
 
   return (
     <motion.div
@@ -52,7 +68,12 @@ const TravelBox = ({ onGenerate }: TravelBoxProps) => {
           ]}
         />
 
-        <GeneratePlanButton onGenerate={onGenerate} />
+        <GeneratePlanButton 
+          onGenerate={onGenerate}
+          planData={getPlanData()}
+          onSuccess={onSuccess}
+          onError={onError}
+        />
       </div>
     </motion.div>
   );

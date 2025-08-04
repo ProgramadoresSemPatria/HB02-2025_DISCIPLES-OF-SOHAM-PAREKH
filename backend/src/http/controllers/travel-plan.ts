@@ -12,7 +12,9 @@ export class TravelPlanController {
       const validationResult = createTravelPlanSchema.safeParse(req.body);
       if (!validationResult.success) {
         res.status(400).json({
+          success: false,
           error: "Invalid data",
+          message: "Invalid data",
           details: validationResult.error.errors,
         });
         return;
@@ -20,7 +22,11 @@ export class TravelPlanController {
 
       const { userId } = getAuth(req);
       if (!userId) {
-        res.status(401).json({ error: "User not authenticated" });
+        res.status(401).json({ 
+          success: false,
+          error: "User not authenticated",
+          message: "User not authenticated"
+        });
         return;
       }
 
@@ -29,7 +35,11 @@ export class TravelPlanController {
         validationResult.data
       );
 
-      res.status(201).json(result);
+      res.status(201).json({
+        success: true,
+        data: result,
+        message: 'Travel plan created successfully'
+      });
     } catch (error) {
       ErrorHandler.handle(error, res, 'create plan');
     }
@@ -39,12 +49,25 @@ export class TravelPlanController {
     try {
       const { userId } = getAuth(req);
       if (!userId) {
-        res.status(401).json({ error: "User not authenticated" });
+        res.status(401).json({ 
+          success: false,
+          error: "User not authenticated",
+          message: "User not authenticated"
+        });
         return;
       }
 
       const plans = await this.travelPlanService.getUserTravelPlans(userId);
-      res.json(plans);
+      res.json({
+        success: true,
+        data: {
+          travelPlans: plans,
+          total: plans.length,
+          page: 1,
+          limit: plans.length
+        },
+        message: 'Travel plans retrieved successfully'
+      });
     } catch (error) {
       ErrorHandler.handle(error, res, 'get user plans');
     }
@@ -56,18 +79,30 @@ export class TravelPlanController {
       const { userId } = getAuth(req);
 
       if (!userId) {
-        res.status(401).json({ error: "User not authenticated" });
+        res.status(401).json({ 
+          success: false,
+          error: "User not authenticated",
+          message: "User not authenticated"
+        });
         return;
       }
 
       const plan = await this.travelPlanService.getTravelPlanById(id, userId);
 
       if (!plan) {
-        res.status(404).json({ error: "Plan not found" });
+        res.status(404).json({ 
+          success: false,
+          error: "Plan not found",
+          message: "Plan not found"
+        });
         return;
       }
 
-      res.json(plan);
+      res.json({
+        success: true,
+        data: plan,
+        message: 'Travel plan retrieved successfully'
+      });
     } catch (error) {
       ErrorHandler.handle(error, res, 'get plan by id');
     }
@@ -84,7 +119,11 @@ export class TravelPlanController {
       }
 
       const result = await this.travelPlanService.updateTravelPlan(id, userId, req.body);
-      res.json(result);
+      res.json({
+        success: true,
+        data: result,
+        message: 'Travel plan updated successfully'
+      });
     } catch (error) {
       ErrorHandler.handle(error, res, 'update plan');
     }
@@ -101,7 +140,11 @@ export class TravelPlanController {
       }
 
       await this.travelPlanService.deleteTravelPlan(id, userId);
-      res.status(204).send();
+      res.status(200).json({
+        success: true,
+        data: null,
+        message: 'Travel plan deleted successfully'
+      });
     } catch (error) {
       ErrorHandler.handle(error, res, 'delete plan');
     }

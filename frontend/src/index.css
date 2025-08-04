@@ -42,6 +42,12 @@
 }
 
 :root {
+	--vacation: 290 85% 65%;
+    --vacation-foreground: 0 0% 100%;
+
+    --relocation: 150 75% 45%;
+    --relocation-foreground: 0 0% 100%;
+
 	--background: oklch(0.9828 0.0085 247.9123);
 	--foreground: oklch(0.2897 0.0338 255.7937);
 	--card: oklch(1.0000 0 0);

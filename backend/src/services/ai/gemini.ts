@@ -76,7 +76,12 @@ export class GeminiService {
 
       const parsed = JSON.parse(cleanText);
       
+      if (type === 'relocation') {
+        this.fixRelocationDataTypes(parsed);
+      }
+      
       if (type === 'vacation') {
+        this.fixVacationDataTypes(parsed);
         return vacationAIResponseSchema.parse(parsed);
       } else {
         return relocationAIResponseSchema.parse(parsed);
@@ -87,6 +92,52 @@ export class GeminiService {
       console.error('Raw text:', text);
       throw new Error(`Invalid JSON response from Gemini for ${type} plan`);
     }
+  }
+
+  private fixRelocationDataTypes(data: any): void {
+    if (data.taxation?.socialSecurity?.employeeRate) {
+      data.taxation.socialSecurity.employeeRate = this.convertToNumber(data.taxation.socialSecurity.employeeRate);
+    }
+    if (data.taxation?.socialSecurity?.employerRate) {
+      data.taxation.socialSecurity.employerRate = this.convertToNumber(data.taxation.socialSecurity.employerRate);
+    }
+    
+    if (data.jobMarket?.workCulture?.vacationDays) {
+      data.jobMarket.workCulture.vacationDays = this.convertToNumber(data.jobMarket.workCulture.vacationDays);
+    }
+    
+    if (data.overview?.population && typeof data.overview.population === 'number') {
+      data.overview.population = data.overview.population.toString();
+    }
+  }
+
+  private fixVacationDataTypes(data: any): void {
+    if (data.attractions && Array.isArray(data.attractions)) {
+      data.attractions.forEach((attraction: any) => {
+        if (attraction.category) {
+          const category = attraction.category.toLowerCase();
+          if (category.includes('free')) {
+            attraction.category = 'free';
+          } else if (category.includes('paid')) {
+            attraction.category = 'paid';
+          } else if (category.includes('optional')) {
+            attraction.category = 'optional';
+          } else {
+            attraction.category = 'paid';
+          }
+        }
+      });
+    }
+  }
+
+  private convertToNumber(value: any): number {
+    if (typeof value === 'number') return value;
+    if (typeof value === 'string') {
+      const cleaned = value.replace(/[^\d.-]/g, '');
+      const parsed = parseFloat(cleaned);
+      return isNaN(parsed) ? 0 : parsed;
+    }
+    return 0;
   }
 
   private getVacationPrompt(destination: string, days: number, budgetLevel: string): string {
@@ -102,6 +153,7 @@ STRICT REQUIREMENTS:
 3. All content must be in ENGLISH
 4. Return ONLY valid JSON - no additional text, explanations, or markdown
 5. Use specific numerical costs (no ranges, use separate min/max)
+6. CRITICAL: For attractions category, use ONLY: "free", "paid", or "optional" - no additional text or descriptions
 
 JSON STRUCTURE REQUIRED:
 {
@@ -182,6 +234,8 @@ STRICT REQUIREMENTS:
 2. All content must be in ENGLISH
 3. Return ONLY valid JSON - no additional text, explanations, or markdown
 4. Provide specific numerical data where possible
+5. CRITICAL: All rate fields (employeeRate, employerRate, vacationDays) must be NUMBERS, not strings
+6. CRITICAL: All percentage and rate values must be numbers (e.g., 8.5 not "8.5")
 
 JSON STRUCTURE REQUIRED:
 {

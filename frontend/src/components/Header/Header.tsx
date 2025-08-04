@@ -25,18 +25,18 @@ const Header = () => {
         </div>
         <nav className="hidden md:flex items-center space-x-4">
           <Link
-            to="/?????"
+            to="/"
             className="text-gray-800 font-medium px-4 py-1.5 rounded-md hover:bg-yellow-500 transition ease-in-out"
             onClick={closeNav}
           >
-            About
+            Home
           </Link>
           <Link
-            to="/???"
+            to="/my-plans"
             className="text-gray-800 font-medium px-4 py-1.5 rounded-md hover:bg-yellow-500 transition ease-in-out"
             onClick={closeNav}
           >
-            Features
+            My Plans
           </Link>
           {user ? (
             <UserButton user={user} />

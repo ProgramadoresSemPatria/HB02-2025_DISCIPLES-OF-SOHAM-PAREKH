@@ -1,6 +1,7 @@
 import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter } from 'react-router';
 import { Router } from './Router';
+import { QueryProvider } from './providers/QueryProvider';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -12,7 +13,9 @@ function App() {
 	return (
 		<BrowserRouter>
 			<ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-				<Router />
+				<QueryProvider>
+					<Router />
+				</QueryProvider>
 			</ClerkProvider>
 		</BrowserRouter>
 	);
