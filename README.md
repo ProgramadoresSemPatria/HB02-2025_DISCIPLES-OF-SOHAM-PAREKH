@@ -38,20 +38,16 @@ A complete system for generating **vacation itineraries** and **international re
 
   ## How to run the project
   
- 1. Start everything with Docker
-```bash
-docker-compose up --build
-```
 
-# 2. Run the backend (if not inside Docker Compose)
+# 1. Run the backend (if not inside Docker Compose)
 ```bash
 cd backend/
 npm install
-npx prisma generate
-npx prisma migrate dev
+npm run db:up
+npm run db:migrate
 npm run dev
 ```
-# 3. Run the frontend
+# 2. Run the frontend
 ```bash
 cd frontend/
 npm install
