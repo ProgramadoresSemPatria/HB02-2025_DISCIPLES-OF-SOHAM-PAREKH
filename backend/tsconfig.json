@@ -4,7 +4,7 @@
 		"module": "ESNext",
 		"strict": true,
 		"outDir": "dist",
-		"rootDir": "./src",
+		"rootDir": ".",
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"baseUrl": ".",
@@ -13,6 +13,6 @@
 			"@/*": ["src/*"]
 		}
 	},
-	"include": ["src/**/*", "generated/**/*", "types/**/*"],
+	"include": ["src/**/*", "generated/**/*.ts", "types/**/*.ts"],
 	"exclude": ["node_modules"]
 }
