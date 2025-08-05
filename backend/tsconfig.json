@@ -1,18 +1,17 @@
 {
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"strict": true,
-		"outDir": "dist",
-		"rootDir": ".",
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"baseUrl": ".",
-		"moduleResolution": "node",
-		"paths": {
-			"@/*": ["src/*"]
-		}
-	},
-	"include": ["src/**/*", "generated/**/*.ts", "types/**/*.ts"],
-	"exclude": ["node_modules"]
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "strict": true,
+        "outDir": "dist",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
+    "include": ["src/**/*", "prisma/**/*"],
+    "exclude": ["node_modules"]
 }

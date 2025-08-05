@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { TravelPlanService } from "@/services/travel-plan";
-import { createTravelPlanSchema } from "@/schemas/travel-plan";
+import { TravelPlanService } from "../../services/travel-plan";
+import { createTravelPlanSchema } from "../../schemas/travel-plan";
 import { getAuth } from "@clerk/express";
-import { ErrorHandler } from "@/utils/error-handler";
+import { ErrorHandler } from "../../utils/error-handler";
 
 export class TravelPlanController {
   constructor(private travelPlanService: TravelPlanService) { }

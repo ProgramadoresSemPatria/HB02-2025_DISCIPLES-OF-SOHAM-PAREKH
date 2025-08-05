@@ -1,7 +1,7 @@
 import { TravelPlanRepository } from "../repositories/travel-plan";
 import { TravelPlanService } from "../services/travel-plan";
 import { TravelPlanController } from "../http/controllers/travel-plan";
-import { PrismaClient } from "../../generated/client.js";
+import { PrismaClient } from "@prisma/client";
 import { GeminiService } from "../services/ai/gemini";
 
 export class DIContainer {
