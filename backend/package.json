@@ -3,7 +3,7 @@
 	"main": "src/index.ts",
 	"type": "module",
 	"scripts": {
-		"build": "tsdown",
+		"build": "tsc",
 		"check-types": "tsc -b",
 		"compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
 		"dev": "tsx watch src/index.ts",
@@ -14,7 +14,11 @@
 		"db:migrate": "prisma migrate dev",
 		"db:reset": "docker compose down -v && docker compose up -d postgres",
 		"db:up": "docker compose up -d postgres",
-		"db:down": "docker compose down"
+		"db:down": "docker compose down",
+		"prisma:migrate": "prisma migrate",
+		"prisma:seed": "prisma db seed",
+		"prisma:generate": "prisma generate",
+		"deploy": "npm run db:up && sleep 10 && npm run prisma:migrate && npm run build && npm run start"
 	},
 	"dependencies": {
 		"@clerk/express": "^1.7.14",
